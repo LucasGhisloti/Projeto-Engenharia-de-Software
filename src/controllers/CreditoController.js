@@ -75,7 +75,6 @@ var analisaSolicitacao = async(usuario, solicitacao, transacoes_usuario)=>{
     await new Promise(resolve => setTimeout(resolve, 1500)) // Timeout apenas para melhor visualizaçao da função ASYNC
     
     if(solicitacao.valor <= usuario.credito_pre_aprovado){
-        console.log("PRE APROVADO")
         return true;
     }
     return false;
