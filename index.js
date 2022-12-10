@@ -19,9 +19,4 @@ app.listen(port, () => {
 });
 
 
-// app.post('/test', (req, res)=>{
-//   let mensagem = req.query.mensagem
-//   console.log(`Ola Mundo ${mensagem}`);
-//   res.send(`Ola Mundo ${mensagem}`)
-// })
 module.exports = app;

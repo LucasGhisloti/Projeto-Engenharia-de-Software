@@ -6,9 +6,10 @@ class Solicitacao extends Model {}
 Solicitacao.init({
   // Model attributes are defined here
   id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true 
   },
   valor: {
     type: DataTypes.FLOAT,
@@ -16,11 +17,15 @@ Solicitacao.init({
   },
   data_solicitacao: {
     type: DataTypes.DATE,       
-    allowNull: false
+    allowNull: false,
+    defaultValue: DataTypes.NOW 
   },
   localizacao: {
     type: DataTypes.STRING,              
     allowNull: false
+  },
+  status: {
+    type: DataTypes.STRING,
   },
   id_usuario :{
     type: DataTypes.STRING,

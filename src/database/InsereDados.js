@@ -7,12 +7,12 @@ const Serasa = require('../models/Serasa')
 exports.get = async(req, res, next)=>{
 
     Cliente.bulkCreate([
-        {id:'1', nome: 'Bruno Camerin Santarem', data_nascimento: '2000-01-21', credito_pre_aprovado: 2000 },
-        {id:'2', nome: 'Flavia dos Santos', data_nascimento: '1980-01-13', credito_pre_aprovado: 1000 },
-        {id:'3', nome: 'Fillipe Martins de Moraes', data_nascimento: '1999-05-10', credito_pre_aprovado: 5000 },
-        {id:'4', nome: 'Lucas Ghisloti', data_nascimento: '1990-12-24', credito_pre_aprovado: 3000 },
-        {id:'5', nome: 'Alexandre dos Anjos', data_nascimento: '1995-03-07', credito_pre_aprovado: 1000 },
-        {id:'6', nome: 'Erick Aceiro', data_nascimento: '2006-06-06', credito_pre_aprovado: 10000 }
+        {id:1, nome: 'Bruno Camerin Santarem', data_nascimento: '2000-01-21', credito_pre_aprovado: 2000 },
+        {id:2, nome: 'Flavia dos Santos', data_nascimento: '1980-01-13', credito_pre_aprovado: 1000 },
+        {id:3, nome: 'Fillipe Martins de Moraes', data_nascimento: '1999-05-10', credito_pre_aprovado: 5000 },
+        {id:4, nome: 'Lucas Ghisloti', data_nascimento: '1990-12-24', credito_pre_aprovado: 3000 },
+        {id:5, nome: 'Alexandre dos Anjos', data_nascimento: '1995-03-07', credito_pre_aprovado: 1000 },
+        {id:6, nome: 'Erick Aceiro', data_nascimento: '2006-06-06', credito_pre_aprovado: 10000 }
     ]).then(() => console.log("Clientes criados"));
 
 
