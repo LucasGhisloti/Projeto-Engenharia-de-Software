@@ -9,9 +9,13 @@ class Serasa extends Model {}
 Serasa.init({
   // Model attributes are defined here
   id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true 
+  },
+  status: {
+    type: DataTypes.STRING,
   },
   id_usuario :{
     type: DataTypes.STRING,

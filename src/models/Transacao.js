@@ -7,9 +7,10 @@ class Transacao extends Model {}
 Transacao.init({
   // Model attributes are defined here
   id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true 
   },
   valor: {
     type: DataTypes.FLOAT,
