@@ -5,6 +5,7 @@ exports.enviaRespostaCallback = async(resposta, callback)=>{
         let cliente = resposta.cliente.nome;
         let solicitacao_valor = resposta.solicitacao.valor;
         let status = resposta.resultado;
+        this.rabbitEnviaStatus(cliente, 'análise finalizada');
         await fetch(callback, {
             method: 'POST',
             mode : 'cors',
