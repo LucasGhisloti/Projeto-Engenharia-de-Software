@@ -6,9 +6,11 @@ const utils = require('../utils/utils')
 
 var criaSolicitacao = async(user_id, valor, localizacao)=>{
     try{
+        utils.rabbitEnviaStatus(user_id, 'solicitação recebida');
         let solicitacao = await Solicitacao.create({id_usuario: user_id, valor: valor, localizacao: localizacao, status : "Em progresso"});
         return {status : 200, message : "Solicitaçao adicionada ao banco", data: solicitacao}
     }catch(err){
+        utils.rabbitEnviaStatus(user_id, 'erro ao processar solicitação');
         return {status : 400 , message : err, data: null}
     }
 }
@@ -71,7 +73,8 @@ var enviaAnaliseSerasa = async(usuario, solicitacao, transacoes_usuario, callbac
 
 
 var analisaSolicitacao = async(usuario, solicitacao, transacoes_usuario)=>{
-
+    
+    utils.rabbitEnviaStatus(usuario, 'verificando crédito pré-aprovado');
     await new Promise(resolve => setTimeout(resolve, 1500)) // Timeout apenas para melhor visualizaçao da função ASYNC
     
     if(solicitacao.valor <= usuario.credito_pre_aprovado){

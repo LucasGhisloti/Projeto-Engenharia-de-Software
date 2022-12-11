@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const amqp = require("amqplib");
 const sequelize = require('./src/database/config')
 const app = express();
 const routes = require("./src/view");

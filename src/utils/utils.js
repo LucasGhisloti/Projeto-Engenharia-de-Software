@@ -1,3 +1,5 @@
+const amqp = require("amqplib");
+
 exports.enviaRespostaCallback = async(resposta, callback)=>{
     try{
         let cliente = resposta.cliente.nome;
@@ -16,3 +18,16 @@ exports.enviaRespostaCallback = async(resposta, callback)=>{
         return err;
     }
 }
+
+exports.rabbitEnviaStatus = async (usuario, status) => {
+    amqp.connect('amqp://localhost')
+    .then(function(conn) {
+        console.log('RabbitMQ: Conectado');
+        return conn.createChannel();
+    })
+    .then(function(ch) {
+        console.log('RabbitMQ: Canal de comunicação Criado.');
+        ch.sendToQueue('StatusConsultas', new Buffer.from('Analise de Credito para '+usuario+': '+status));
+        console.log('RabbitMQ: Status Enviado');   
+    });
+};
