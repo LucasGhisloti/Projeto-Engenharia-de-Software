@@ -20,14 +20,18 @@ exports.enviaRespostaCallback = async(resposta, callback)=>{
 }
 
 exports.rabbitEnviaStatus = async (usuario, status) => {
-    amqp.connect('amqp://localhost')
-    .then(function(conn) {
-        console.log('RabbitMQ: Conectado');
-        return conn.createChannel();
-    })
-    .then(function(ch) {
-        console.log('RabbitMQ: Canal de comunicação Criado.');
-        ch.sendToQueue('StatusConsultas', new Buffer.from('Analise de Credito para '+usuario+': '+status));
-        console.log('RabbitMQ: Status Enviado');   
-    });
+    try{
+        amqp.connect('amqp://localhost')
+        .then(function(conn) {
+            console.log('RabbitMQ: Conectado');
+            return conn.createChannel();
+        })
+        .then(function(ch) {
+            console.log('RabbitMQ: Canal de comunicação Criado.');
+            ch.sendToQueue('StatusConsultas', new Buffer.from('Analise de Credito para '+usuario+': '+status));
+            console.log('RabbitMQ: Status Enviado');   
+        });
+    }catch(err){
+        console.log(err)
+    }
 };
