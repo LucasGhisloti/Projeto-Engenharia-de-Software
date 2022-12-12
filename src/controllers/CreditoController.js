@@ -1,6 +1,7 @@
 const Cliente = require("../models/Cliente");
-const Solicitacao = require('../models/Solicitacao')
-const Transacao = require("../models/Transacao")
+const Solicitacao = require('../models/Solicitacao');
+const Transacao = require("../models/Transacao");
+const Serasa = require("../models/Serasa");
 
 const utils = require('../utils/utils')
 
@@ -54,7 +55,7 @@ var enviaRespostaCallback = async(resposta, callback)=>{
     }
 }
 
-var enviaAnaliseSerasa = async(usuario, solicitacao, transacoes_usuario, callback_url)=>{
+var enviaAnaliseSerasa = async(usuario, solicitacao, transacoes_usuario, solicitacao_serasa, callback_url)=>{
     try{
 
         const response = await fetch('http://localhost:3333/serasa/analise', {
@@ -63,7 +64,7 @@ var enviaAnaliseSerasa = async(usuario, solicitacao, transacoes_usuario, callbac
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({cliente: usuario, solicitacao: solicitacao, transacoes: transacoes_usuario, callback: callback_url})
+            body: JSON.stringify({cliente: usuario, solicitacao: solicitacao, transacoes: transacoes_usuario, solicitacao_serasa: solicitacao_serasa, callback: callback_url})
         });
         return response
     }catch(err){
@@ -99,20 +100,20 @@ exports.analise = async (req, res, next) => {
         let resultado_analise = await analisaSolicitacao(cliente, solicitacao, transacoes_usuario);
 
         if(resultado_analise){
+            await Solicitacao.update({status : "Aprovado"}, {where : {id : solicitacao.id}})
             utils.enviaRespostaCallback({cliente: cliente, solicitacao: solicitacao, resultado: resultado_analise}, data.callback_url)
             // enviaRespostaCallback({cliente: cliente, solicitacao: solicitacao, resultado: resultado_analise}, data.callback_url);
         }else{
-            let resultado_analise_serasa = await enviaAnaliseSerasa(cliente, solicitacao, transacoes_usuario, data.callback_url)
+            let solicitacao_serasa = await Serasa.create({id_usuario: cliente.id, id_solicitacao_credito: solicitacao.id, status : "Em progresso"});
+            await enviaAnaliseSerasa(cliente, solicitacao, transacoes_usuario, solicitacao_serasa ,data.callback_url)
             // enviaRespostaCallback({cliente: cliente, solicitacao: solicitacao, resultado: resultado_analise_serasa}, data.callback_url);
         }
         
 
     }catch(err){
-
+        return err;
     }
-
 }
-  
 
 exports.solicitacao = async (req, res, next) => {
     let data = req.body;

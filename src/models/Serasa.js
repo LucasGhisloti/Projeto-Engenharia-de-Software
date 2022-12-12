@@ -32,14 +32,6 @@ Serasa.init({
       key: 'id',
       allowNull: false
     }
-  },
-  id_transacao :{
-    type: DataTypes.STRING,
-    reference: {
-      model: Transacao,
-      key: 'id',
-      allowNull: false
-    }
   }
 }, {
   // Other model options go here
