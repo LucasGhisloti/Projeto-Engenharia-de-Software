@@ -4,7 +4,7 @@ const utils = require('../utils/utils')
 
 var analisaSolicitacao = async(usuario, solicitacao, transacoes_usuario)=>{
     
-    utils.rabbitEnviaStatus(usuario, 'verificando condição no Serasa');
+    utils.rabbitEnviaStatus(usuario.id, 'verificando condição no Serasa');
     let totalTransacoes = 0;
     let localizacoes = [];
     await new Promise(resolve => setTimeout(resolve, 4000)) // Timeout apenas para melhor visualizaçao da função ASYNC
