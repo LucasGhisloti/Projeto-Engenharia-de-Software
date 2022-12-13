@@ -1,0 +1,126 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação das APIs",
+        "version": "1.0.0", 
+        "description": "Esse arquivo tem como objetivo documentar as APIs"
+    },
+
+    "paths" : {
+        "/credito/solicitacao": {
+            "post": {
+                "summary": "Solicitação de crédito",
+                "description": "Essa rota é responsável por solicitar o crédito do usuário",
+                "tags": ["Credito"],
+                "requestBody": {
+                    "content": {
+                        "aplication/json": {
+                            "schema": {
+                                "$ref": "#/components/solicitacao"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Solicitacao Recebida, sendo analisada"
+                    }
+                }
+            }
+        },
+        "/credito/analise": {
+            "post": {
+                "summary": "Analise de credito",
+                "description": "Essa rota é responsável por analisar o crédito do usuário",
+                "tags": ["Credito"],
+                "requestBody": {
+                    "content": {
+                        "aplication/json": {
+                            "schema": {
+                                "$ref": "#/components/analise"
+                            }
+                        }
+                    }
+                }                
+            }
+        },
+        "/serasa/analise": {
+            "post": {
+                "summary": "Análise de crédito Serasa",
+                "description": "Essa rota é responsável por analisar o crédito do usuário no Serasa",
+                "tags": ["Serasa"],
+                "requestBody": {
+                    "content": {
+                        "aplication/json": {
+                            "schema": {
+                                "$ref": "#/components/analiseSerasa"
+                            }
+                        }
+                    }
+                }                
+            }
+        },
+        "/insereDados": {
+            "get": {
+                "summary": "Cadastro e Histórico de usuários",
+                "description": "Essa rota é responsável por cadastrar os usuários e seu histórico de transacoes",
+                "tags": ["Usuario"],
+                "requestBody": {
+                    "content": {
+                        
+                    }
+                }                
+            }
+        }
+    },
+    "components": {        
+        "solicitacao": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "integer"
+                },                    
+                "valor": {
+                    "type": "number"
+                },                    
+                "localizacao": {
+                    "type": "string"
+                },                  
+                "callback_url":{
+                    "type": "string"
+                }
+            }
+        },
+        "analise": {
+            "type": "object",
+            "properties": {
+                "cliente": {
+                    "type": "string"
+                },                    
+                "solicitacao": {
+                    "type": "string"
+                },                    
+                "transacoes_usuario": {
+                    "type": "string"
+                }
+            }
+        },
+        "analiseSerasa": {
+            "type": "object",
+            "properties": {
+                "cliente": {
+                    "type": "string"
+                },                    
+                "solicitacao": {
+                    "type": "string"
+                },                    
+                "transacoes_usuario": {
+                    "type": "string"
+                },                  
+                "callback":{
+                    "type": "string"
+                }
+            }
+        }              
+    }    
+}       
