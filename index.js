@@ -6,6 +6,9 @@ const sequelize = require('./src/database/config')
 const app = express();
 const routes = require("./src/view");
 
+const swaggerUI = require("swagger-ui-express");
+const swaggerDocs = require("./swagger.json"); 
+
 sequelize.sync().then(()=>{console.log("Connected")})
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,5 +22,6 @@ app.listen(port, () => {
   console.log(`Server listening on ${port}`);
 });
 
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 module.exports = app;
