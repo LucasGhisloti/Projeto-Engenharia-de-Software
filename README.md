@@ -12,8 +12,20 @@
 ## Como usar o sistema
 
 #### **Setup**
+Primero será necessário instalar o RabbitMQ:
+ - Acesse o site <https://www.rabbitmq.com/install-windows.html> para fazer o dowload do instalador. 
+   - Para poder utilizar o RabbitMQ, é necessário instalar também o Erlang, mas o próprio instalador do Rabbit irá redirecioná-lo a página de download do Erlang,
+     caso você ainda não o tenha instalado.
+ - Após completar as instalaçãoes, será necessário ativar o Management Plugin:
+   - No prompt de comando acesse a pasta sbim dentro da pasta de instalação do Rabbit, exemplo: C:\Program Files\RabbitMQ Server\rabbitmq_server-3.11.4\sbin
+   - E então execute o comando abaixo:
+   ```
+       rabbitmq-plugins enable rabbitmq_management
+   ```
+   - Acesse no seu navegador a página: http://localhost:15672/ e logue na interface com usuário guest e senha guest.
+   - Por fim, na aba Queues da interface, adicione uma fila com o nome: StatusConsultas.
 
-Após clonar o projeto realize os seguintes comandos:
+Após instalar o rabbitMQ, clone o projeto e realize os seguintes comandos:
 
  - `npm install`  (Para instalar as dependências do projeto)
  - `npm start`   (Comando para iniciar o projeto)
